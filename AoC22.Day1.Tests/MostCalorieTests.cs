@@ -16,8 +16,8 @@ public class MostCalorieTests
 1500
 ";
 
-        var calculator = new MostCalorieCalculator(input, Environment.NewLine);
-        var result = calculator.GetHighestCalories();
+        var calculator = new ElfCalorieCalculator(input, Environment.NewLine);
+        var result = calculator.GetCaloriesForElfWithHighest();
         result.Should().Be(2000);
     }
     
@@ -35,8 +35,8 @@ public class MostCalorieTests
 1000
 ";
 
-        var calculator = new MostCalorieCalculator(input, Environment.NewLine);
-        var result = calculator.GetHighestCalories();
+        var calculator = new ElfCalorieCalculator(input, Environment.NewLine);
+        var result = calculator.GetCaloriesForElfWithHighest();
         result.Should().Be(7000);
     }
     
@@ -55,8 +55,8 @@ public class MostCalorieTests
 1000
 ";
 
-        var calculator = new MostCalorieCalculator(input, Environment.NewLine);
-        var result = calculator.GetHighestCalories();
+        var calculator = new ElfCalorieCalculator(input, Environment.NewLine);
+        var result = calculator.GetCaloriesForElfWithHighest();
         result.Should().Be(7000);
     }
     
@@ -65,8 +65,8 @@ public class MostCalorieTests
     {
         var input = "1000\n2000\n\n3000\n\n\n2000\n5000\n\n1500\n1000";
 
-        var calculator = new MostCalorieCalculator(input, "\n");
-        var result = calculator.GetHighestCalories();
+        var calculator = new ElfCalorieCalculator(input, "\n");
+        var result = calculator.GetCaloriesForElfWithHighest();
         result.Should().Be(7000);
     }
 }

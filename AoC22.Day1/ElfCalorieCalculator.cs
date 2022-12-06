@@ -1,17 +1,17 @@
 ﻿namespace AoC22.Day1;
 
-public class MostCalorieCalculator
+public class ElfCalorieCalculator
 {
-    private readonly IOrderedEnumerable<int> _calories;
+    private readonly IOrderedEnumerable<int> _orderedCalories;
 
-    public MostCalorieCalculator(string input, string newlineCharacter)
+    public ElfCalorieCalculator(string input, string newlineCharacter)
     {
         var elfDelimiter = $"{newlineCharacter}{newlineCharacter}";
         
         var splitByElf = input
             .Split(elfDelimiter, StringSplitOptions.RemoveEmptyEntries);
 
-        _calories = splitByElf.Select(
+        _orderedCalories = splitByElf.Select(
                 e => e
                     .Split(newlineCharacter, StringSplitOptions.RemoveEmptyEntries)
                     .Select(int.Parse)
@@ -19,8 +19,13 @@ public class MostCalorieCalculator
             .OrderByDescending(i => i);
     }
 
-    public int GetHighestCalories()
+    public int GetCaloriesForElfWithHighest()
     {
-        return _calories.First();
+        return _orderedCalories.First();
+    }
+
+    public int GetSumOfCaloriesForThreeElvesWithHighest()
+    {
+        return _orderedCalories.Take(3).Sum();
     }
 }
