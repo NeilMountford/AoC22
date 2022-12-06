@@ -1,8 +1,13 @@
 ﻿using AoC22.Day1;
+using AoC22.Day2;
 
-const string inputFolder = "E:\\dev\\aoc22\\inputs";
-var input = await File.ReadAllTextAsync(Path.Combine(inputFolder, "day1-1.txt"));
-var day1 = new ElfCalorieCalculator(input, "\n");
+var input = await LoadInputData(2);
+var calculator = new RockPaperScissorsStrategyCalculator(input);
+var result = calculator.CalculateScore();
 
-Console.WriteLine($"Elf with most calories: {day1.GetCaloriesForElfWithHighest()}");
-Console.WriteLine($"Sum of 3 elves with most calories: {day1.GetSumOfCaloriesForThreeElvesWithHighest()}");
+Console.WriteLine($"Suggested strategy score: {result}");
+
+async Task<string> LoadInputData(int day)
+{
+    return await File.ReadAllTextAsync(Path.Combine("E:\\dev\\aoc22\\inputs", $"day{day}.txt"));
+}
