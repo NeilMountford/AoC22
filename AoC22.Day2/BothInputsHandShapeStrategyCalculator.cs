@@ -1,6 +1,6 @@
 ﻿namespace AoC22.Day2;
 
-public class RockPaperScissorsStrategyCalculator
+public class BothInputsHandShapeStrategyCalculator
 {
     private const int WinScore = 6;
     private const int DrawScore = 3;
@@ -10,9 +10,9 @@ public class RockPaperScissorsStrategyCalculator
     private const int PaperScore = 2;
     private const int ScissorScore = 3;
     
-    private readonly List<Strategy> _movesWithStrategies;
+    private readonly List<HandShapeStrategy> _movesWithStrategies;
 
-    public RockPaperScissorsStrategyCalculator(string input)
+    public BothInputsHandShapeStrategyCalculator(string input)
     {
         _movesWithStrategies = input
             .Split("\n", StringSplitOptions.RemoveEmptyEntries)
@@ -22,7 +22,7 @@ public class RockPaperScissorsStrategyCalculator
                     var handShapes = moves.Split(" ");
                     var opponentHandShape = ParseOpponentHandShape(handShapes[0]);
                     var suggestedMoveHandShape = ParseSuggestedMoveHandShape(handShapes[1]);
-                    return new Strategy(opponentHandShape, suggestedMoveHandShape);
+                    return new HandShapeStrategy(opponentHandShape, suggestedMoveHandShape);
                 })
             .ToList();
     }
@@ -56,9 +56,9 @@ public class RockPaperScissorsStrategyCalculator
         };
     }
 
-    private int GetPlayerScore(Strategy strategy)
+    private int GetPlayerScore(HandShapeStrategy handShapeStrategy)
     {
-        return (strategy.SuggestedHandShape, strategy.OpponentHandShape) switch
+        return (handShapeStrategy.SuggestedHandShape, handShapeStrategy.OpponentHandShape) switch
         {
             (HandShape.Rock, HandShape.Rock) => RockScore + DrawScore,
             (HandShape.Rock, HandShape.Paper) => RockScore + LoseScore,

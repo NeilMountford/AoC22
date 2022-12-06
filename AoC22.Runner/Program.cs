@@ -2,10 +2,14 @@
 using AoC22.Day2;
 
 var input = await LoadInputData(2);
-var calculator = new RockPaperScissorsStrategyCalculator(input);
-var result = calculator.CalculateScore();
+var handShapeCalculator = new BothInputsHandShapeStrategyCalculator(input);
+var handShapeResult = handShapeCalculator.CalculateScore();
 
-Console.WriteLine($"Suggested strategy score: {result}");
+var outcomeCalculator = new HandShapeOutcomeStrategyCalculator(input);
+var outcomeResult = outcomeCalculator.CalculateScore();
+
+Console.WriteLine($"Suggested strategy score for hand shape: {handShapeResult}");
+Console.WriteLine($"Suggested strategy score for desired outcome: {outcomeResult}");
 
 async Task<string> LoadInputData(int day)
 {
