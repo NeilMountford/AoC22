@@ -2,9 +2,10 @@
 using AoC22.Solutions.Day3;
 using AoC22.Solutions.Day4;
 using AoC22.Solutions.Day5;
+using AoC22.Solutions.Day6;
 using AoC22.Solutions.Day8;
 
-await Day5();
+await Day6();
 
 async Task<string> LoadInputData(int day)
 {
@@ -56,6 +57,17 @@ async Task Day5()
 
     Console.WriteLine($"StackTops (model 9000): {stackTops9000}");
     Console.WriteLine($"StackTops (model 9001): {stackTops9001}");
+}
+
+async Task Day6()
+{
+    var input = await LoadInputData(6);
+    var signalDecoder = new SignalDecoder(input);
+    var firstPacket = signalDecoder.FindFirstPacket();
+    var firstMessage = signalDecoder.FindMessage();
+
+    Console.WriteLine($"First packet: {firstPacket}");
+    Console.WriteLine($"Message: {firstMessage}");
 }
 
 async Task Day8()
