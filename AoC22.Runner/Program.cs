@@ -26,6 +26,8 @@ async Task Day3()
     var input = await LoadInputData(3);
     var rucksack = new RucksackLayout(input);
     var sumOfIncorrectlyPackedItemPriorities = rucksack.GetSumOfIncorrectlyPackedItemPriorities();
+    var sumOfBadgeItems = rucksack.GetSumOfBadgeItemPriorities();
 
     Console.WriteLine($"Sum of incorrectly packed item priorities: {sumOfIncorrectlyPackedItemPriorities}");
+    Console.WriteLine($"Sum of badge item priorities: {sumOfBadgeItems}");
 }
