@@ -1,4 +1,4 @@
-﻿namespace AoC22.Day1;
+﻿namespace AoC22.Solutions.Day1;
 
 public class ElfCalorieCalculator
 {

@@ -1,6 +1,6 @@
-﻿namespace AoC22.Day2;
+﻿namespace AoC22.Solutions.Day2;
 
-public class BothInputsHandShapeStrategyCalculator
+public class HandShapeOutcomeStrategyCalculator
 {
     private const int WinScore = 6;
     private const int DrawScore = 3;
@@ -10,26 +10,27 @@ public class BothInputsHandShapeStrategyCalculator
     private const int PaperScore = 2;
     private const int ScissorScore = 3;
     
-    private readonly List<HandShapeStrategy> _movesWithStrategies;
+    private readonly List<HandShapeOutcomeStrategy> _movesWithDesiredOutcomes;
 
-    public BothInputsHandShapeStrategyCalculator(string input)
+    public HandShapeOutcomeStrategyCalculator(string input)
     {
-        _movesWithStrategies = input
+        _movesWithDesiredOutcomes = input
             .Split("\n", StringSplitOptions.RemoveEmptyEntries)
             .Select(
                 moves =>
                 {
-                    var handShapes = moves.Split(" ");
-                    var opponentHandShape = ParseOpponentHandShape(handShapes[0]);
-                    var suggestedMoveHandShape = ParseSuggestedMoveHandShape(handShapes[1]);
-                    return new HandShapeStrategy(opponentHandShape, suggestedMoveHandShape);
+                    var handShapeWithDesiredOutcome = moves.Split(" ");
+                    var opponentHandShape = ParseOpponentHandShape(handShapeWithDesiredOutcome[0]);
+                    var desiredOutcome = ParseDesiredOutcomeHandShape(handShapeWithDesiredOutcome[1]);
+                    return new HandShapeOutcomeStrategy(opponentHandShape, desiredOutcome);
                 })
             .ToList();
     }
 
     public int CalculateScore()
     {
-        return _movesWithStrategies
+        return _movesWithDesiredOutcomes
+            .Select(GetHandShapeStrategy)
             .Select(GetPlayerScore)
             .Sum();
     }
@@ -45,15 +46,31 @@ public class BothInputsHandShapeStrategyCalculator
         };
     }
 
-    private HandShape ParseSuggestedMoveHandShape(string input)
+    private DesiredOutcome ParseDesiredOutcomeHandShape(string input)
     {
         return input switch
         {
-            "X" => HandShape.Rock,
-            "Y" => HandShape.Paper,
-            "Z" => HandShape.Scissors,
+            "X" => DesiredOutcome.Lose,
+            "Y" => DesiredOutcome.Draw,
+            "Z" => DesiredOutcome.Win,
             _ => throw new ArgumentOutOfRangeException()
         };
+    }
+
+    private HandShapeStrategy GetHandShapeStrategy(HandShapeOutcomeStrategy outcomeStrategy)
+    {
+        var suggestedHandShape = (outcomeStrategy.OpponentHandShape, outcomeStrategy.DesiredOutcome) switch
+        {
+            (HandShape.Rock, DesiredOutcome.Lose) => HandShape.Scissors,
+            (HandShape.Rock, DesiredOutcome.Win) => HandShape.Paper,
+            (HandShape.Paper, DesiredOutcome.Win) => HandShape.Scissors,
+            (HandShape.Paper, DesiredOutcome.Lose) => HandShape.Rock,
+            (HandShape.Scissors, DesiredOutcome.Lose) => HandShape.Paper,
+            (HandShape.Scissors, DesiredOutcome.Win) => HandShape.Rock,
+            (_, DesiredOutcome.Draw) => outcomeStrategy.OpponentHandShape,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        return new HandShapeStrategy(outcomeStrategy.OpponentHandShape, suggestedHandShape);
     }
 
     private int GetPlayerScore(HandShapeStrategy handShapeStrategy)

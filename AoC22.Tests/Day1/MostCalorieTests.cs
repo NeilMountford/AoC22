@@ -1,8 +1,7 @@
 using System;
-using FluentAssertions;
-using Xunit;
+using AoC22.Solutions.Day1;
 
-namespace AoC22.Day1.Tests;
+namespace AoC22.Tests.Day1;
 
 public class MostCalorieTests
 {

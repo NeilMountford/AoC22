@@ -1,5 +1,4 @@
-﻿using AoC22.Day1;
-using AoC22.Day2;
+﻿using AoC22.Solutions.Day2;
 
 var input = await LoadInputData(2);
 var handShapeCalculator = new BothInputsHandShapeStrategyCalculator(input);

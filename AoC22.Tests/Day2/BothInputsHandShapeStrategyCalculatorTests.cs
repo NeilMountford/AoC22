@@ -1,7 +1,6 @@
-using FluentAssertions;
-using Xunit;
+using AoC22.Solutions.Day2;
 
-namespace AoC22.Day2.Tests;
+namespace AoC22.Tests.Day2;
 
 public class BothInputsHandShapeStrategyCalculatorTests
 {
