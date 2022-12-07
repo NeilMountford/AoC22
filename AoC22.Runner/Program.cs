@@ -1,9 +1,10 @@
 ﻿using AoC22.Solutions.Day2;
 using AoC22.Solutions.Day3;
 using AoC22.Solutions.Day4;
+using AoC22.Solutions.Day5;
 using AoC22.Solutions.Day8;
 
-await Day8();
+await Day5();
 
 async Task<string> LoadInputData(int day)
 {
@@ -43,6 +44,18 @@ async Task Day4()
 
     Console.WriteLine($"Full crossover count: {fullCrossover}");
     Console.WriteLine($"Partial crossover count: {partialCrossover}");
+}
+
+async Task Day5()
+{
+    var input = await LoadInputData(5);
+    var createUnloader9000 = new CrateUnloader9000(input);
+    var createUnloader9001 = new CrateUnloader9001(input);
+    var stackTops9000 = createUnloader9000.GetFinalTopOfStacks();
+    var stackTops9001 = createUnloader9001.GetFinalTopOfStacks();
+
+    Console.WriteLine($"StackTops (model 9000): {stackTops9000}");
+    Console.WriteLine($"StackTops (model 9001): {stackTops9001}");
 }
 
 async Task Day8()
