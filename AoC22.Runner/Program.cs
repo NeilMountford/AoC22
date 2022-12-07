@@ -3,9 +3,10 @@ using AoC22.Solutions.Day3;
 using AoC22.Solutions.Day4;
 using AoC22.Solutions.Day5;
 using AoC22.Solutions.Day6;
+using AoC22.Solutions.Day7;
 using AoC22.Solutions.Day8;
 
-await Day6();
+await Day7();
 
 async Task<string> LoadInputData(int day)
 {
@@ -68,6 +69,17 @@ async Task Day6()
 
     Console.WriteLine($"First packet: {firstPacket}");
     Console.WriteLine($"Message: {firstMessage}");
+}
+
+async Task Day7()
+{
+    var input = await LoadInputData(7);
+    var deviceCleanup = new DeviceCleanup(input);
+    var sumOfSizesForDirectoriesWithSizeAtMost100000 = deviceCleanup.GetSumOfSizesForDirectoriesWithSizeAtMost100000();
+    var smallestRemovableSize = deviceCleanup.GetSizeOfSmallestDeletableDirectory();
+
+    Console.WriteLine($"Sum for part 1: {sumOfSizesForDirectoriesWithSizeAtMost100000}");
+    Console.WriteLine($"Smallest removable: {smallestRemovableSize}");
 }
 
 async Task Day8()
