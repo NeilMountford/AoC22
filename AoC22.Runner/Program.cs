@@ -1,8 +1,9 @@
 ﻿using AoC22.Solutions.Day2;
 using AoC22.Solutions.Day3;
 using AoC22.Solutions.Day4;
+using AoC22.Solutions.Day8;
 
-await Day4();
+await Day8();
 
 async Task<string> LoadInputData(int day)
 {
@@ -36,10 +37,21 @@ async Task Day3()
 async Task Day4()
 {
     var input = await LoadInputData(4);
-    var rucksack = new CleanupCrossover(input);
-    var fullCrossover = rucksack.GetPairsWithFullOverlap();
-    var partialCrossover = rucksack.GetPairsWithPartialOverlap();
+    var cleanupCrossover = new CleanupCrossover(input);
+    var fullCrossover = cleanupCrossover.GetPairsWithFullOverlap();
+    var partialCrossover = cleanupCrossover.GetPairsWithPartialOverlap();
 
     Console.WriteLine($"Full crossover count: {fullCrossover}");
     Console.WriteLine($"Partial crossover count: {partialCrossover}");
+}
+
+async Task Day8()
+{
+    var input = await LoadInputData(8);
+    var treeHousePlanner = new TreeHouseLocationPlanner(input);
+    var visibleTrees = treeHousePlanner.CountTreesVisibleFromOutside();
+    var bestScenicScore = treeHousePlanner.GetHighestScenicScore();
+
+    Console.WriteLine($"Visible trees: {visibleTrees}");
+    Console.WriteLine($"Most scenic: {bestScenicScore}");
 }
