@@ -2,130 +2,80 @@
 
 public class Tree
 {
-    public int Height { get; }
+    private int Height { get; }
 
-    public Tree? North { get; set; }
-    public Tree? East { get; set; }
-    public Tree? South { get; set; }
-    public Tree? West { get; set; }
+    public Tree? North
+    {
+        set => _treesInOtherDirections[Direction.North] = value;
+    }
+
+    public Tree? East
+    {
+        set => _treesInOtherDirections[Direction.East] = value;
+    }
+    public Tree? South
+    {
+        set => _treesInOtherDirections[Direction.South] = value;
+    }
+    public Tree? West
+    {
+        set => _treesInOtherDirections[Direction.West] = value;
+    }
+
+    private readonly Dictionary<Direction, Tree?> _treesInOtherDirections;
 
     public Tree(int height)
     {
         Height = height;
+        _treesInOtherDirections = new Dictionary<Direction, Tree?>();
     }
 
     public bool IsVisible()
     {
         return
             IsOnEdge() ||
-            IsVisibleToNorth() ||
-            IsVisibleToEast() ||
-            IsVisibleToSouth() ||
-            IsVisibleToWest();
+            IsVisibleInDirection(Direction.North) ||
+            IsVisibleInDirection(Direction.East) ||
+            IsVisibleInDirection(Direction.South) ||
+            IsVisibleInDirection(Direction.West);
     }
 
     public int CalculateScenicScore()
     {
         return
-            CalculateNorthScenicScore() *
-            CalculateEastScenicScore() *
-            CalculateSouthScenicScore() *
-            CalculateWestScenicScore();
+            CalculateScenicScoreInDirection(Direction.North) *
+            CalculateScenicScoreInDirection(Direction.East) *
+            CalculateScenicScoreInDirection(Direction.South) *
+            CalculateScenicScoreInDirection(Direction.West);
     }
 
-    private int CalculateNorthScenicScore()
+    private int CalculateScenicScoreInDirection(Direction direction)
     {
         var score = 0;
-        var nextVisibleTree = North;
+        var nextVisibleTree = _treesInOtherDirections[direction];
 
         while (nextVisibleTree != null)
         {
             score++;
-            nextVisibleTree = nextVisibleTree.Height < Height ? nextVisibleTree.North : null;
+            nextVisibleTree = nextVisibleTree.Height < Height ? nextVisibleTree._treesInOtherDirections[direction] : null;
         }
 
         return score;
-        // if (North != null)
-        // {
-        //     return North.Height < Height ? North.CalculateNorthScenicScore(scenicScoreSum + 1) : scenicScoreSum + 1;
-        // }
-        //
-        // return scenicScoreSum;
-    }
-
-    private int CalculateEastScenicScore()
-    {
-        var score = 0;
-        var nextVisibleTree = East;
-
-        while (nextVisibleTree != null)
-        {
-            score++;
-            nextVisibleTree = nextVisibleTree.Height < Height ? nextVisibleTree.East : null;
-        }
-
-        return score;
-        // if (East != null)
-        // {
-        //     return East.Height < Height ? East.CalculateEastScenicScore(scenicScoreSum + 1) : scenicScoreSum + 1;
-        // }
-        //
-        // return scenicScoreSum;
-    }
-
-    private int CalculateSouthScenicScore()
-    {
-        var score = 0;
-        var nextVisibleTree = South;
-
-        while (nextVisibleTree != null)
-        {
-            score++;
-            nextVisibleTree = nextVisibleTree.Height < Height ? nextVisibleTree.South : null;
-        }
-
-        return score;
-        // if (South != null)
-        // {
-        //     return South.Height < Height ? South.CalculateSouthScenicScore(scenicScoreSum + 1) : scenicScoreSum + 1;
-        // }
-        //
-        // return scenicScoreSum;
-    }
-
-    private int CalculateWestScenicScore()
-    {
-        var score = 0;
-        var nextVisibleTree = West;
-
-        while (nextVisibleTree != null)
-        {
-            score++;
-            nextVisibleTree = nextVisibleTree.Height < Height ? nextVisibleTree.West : null;
-        }
-
-        return score;
-        // if (West != null)
-        // {
-        //     return West.Height < Height ? West.CalculateWestScenicScore(scenicScoreSum + 1) : scenicScoreSum + 1;
-        // }
-        //
-        // return scenicScoreSum;
     }
 
     private bool IsOnEdge()
     {
         return
-            North == null ||
-            East == null ||
-            South == null ||
-            West == null;
+            _treesInOtherDirections[Direction.North] == null ||
+            _treesInOtherDirections[Direction.East] == null ||
+            _treesInOtherDirections[Direction.South] == null ||
+            _treesInOtherDirections[Direction.West] == null;
     }
 
-    private bool IsVisibleToNorth()
+    private bool IsVisibleInDirection(Direction direction)
     {
-        var nextTree = North;
-
+        var nextTree = _treesInOtherDirections[direction];
+        
         while (nextTree != null)
         {
             if (nextTree.Height >= Height)
@@ -133,58 +83,7 @@ public class Tree
                 return false;
             }
 
-            nextTree = nextTree.North;
-        }
-
-        return true;
-    }
-
-    private bool IsVisibleToEast()
-    {
-        var nextTree = East;
-
-        while (nextTree != null)
-        {
-            if (nextTree.Height >= Height)
-            {
-                return false;
-            }
-
-            nextTree = nextTree.East;
-        }
-
-        return true;
-    }
-
-    private bool IsVisibleToSouth()
-    {
-        var nextTree = South;
-
-        while (nextTree != null)
-        {
-            if (nextTree.Height >= Height)
-            {
-                return false;
-            }
-
-            nextTree = nextTree.South;
-        }
-
-        return true;
-    }
-
-    private bool IsVisibleToWest()
-    {
-        var nextTree = West;
-
-        while (nextTree != null)
-        {
-            if (nextTree.Height >= Height)
-            {
-                return false;
-            }
-
-            nextTree = nextTree.West;
+            nextTree = nextTree._treesInOtherDirections[direction];
         }
 
         return true;
