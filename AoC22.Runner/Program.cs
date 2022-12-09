@@ -5,8 +5,9 @@ using AoC22.Solutions.Day5;
 using AoC22.Solutions.Day6;
 using AoC22.Solutions.Day7;
 using AoC22.Solutions.Day8;
+using AoC22.Solutions.Day9;
 
-await Day7();
+await Day9();
 
 async Task<string> LoadInputData(int day)
 {
@@ -91,4 +92,15 @@ async Task Day8()
 
     Console.WriteLine($"Visible trees: {visibleTrees}");
     Console.WriteLine($"Most scenic: {bestScenicScore}");
+}
+
+async Task Day9()
+{
+    var input = await LoadInputData(9);
+    var ropePuller = new RopePuller(input);
+    var tailVisitedLocationCount = ropePuller.CountTailLocationsVisited(1);
+    var longRopeTailVisitedLocationCount = ropePuller.CountTailLocationsVisited(9);
+
+    Console.WriteLine($"Tail locations visited: {tailVisitedLocationCount}");
+    Console.WriteLine($"Long tail locations visited: {longRopeTailVisitedLocationCount}");
 }
