@@ -1,4 +1,5 @@
-﻿using AoC22.Solutions.Day2;
+﻿using AoC22.Solutions.Day10;
+using AoC22.Solutions.Day2;
 using AoC22.Solutions.Day3;
 using AoC22.Solutions.Day4;
 using AoC22.Solutions.Day5;
@@ -7,7 +8,7 @@ using AoC22.Solutions.Day7;
 using AoC22.Solutions.Day8;
 using AoC22.Solutions.Day9;
 
-await Day9();
+await Day10();
 
 async Task<string> LoadInputData(int day)
 {
@@ -103,4 +104,20 @@ async Task Day9()
 
     Console.WriteLine($"Tail locations visited: {tailVisitedLocationCount}");
     Console.WriteLine($"Long tail locations visited: {longRopeTailVisitedLocationCount}");
+}
+
+async Task Day10()
+{
+    var input = await LoadInputData(10);
+    var clockCircuit = new ClockCircuit(input);
+    var signalStrengthSum = clockCircuit.GetSignalStrength();
+    var crtDisplay = clockCircuit.GetCrtImage();
+
+    Console.WriteLine($"Signal strength sum: {signalStrengthSum}");
+    Console.WriteLine("CRT:");
+    foreach (var line in crtDisplay)
+    {
+        Console.WriteLine(line);
+    }
+    // RGLRBZAU
 }
