@@ -1,4 +1,5 @@
 ﻿using AoC22.Solutions.Day10;
+using AoC22.Solutions.Day11;
 using AoC22.Solutions.Day2;
 using AoC22.Solutions.Day3;
 using AoC22.Solutions.Day4;
@@ -8,7 +9,7 @@ using AoC22.Solutions.Day7;
 using AoC22.Solutions.Day8;
 using AoC22.Solutions.Day9;
 
-await Day10();
+await Day11();
 
 async Task<string> LoadInputData(int day)
 {
@@ -120,4 +121,16 @@ async Task Day10()
         Console.WriteLine(line);
     }
     // RGLRBZAU
+}
+
+async Task Day11()
+{
+    var input = await LoadInputData(11);
+    var keepAwayWithRelief = new KeepAway(input, true);
+    var keepAwayWithoutRelief = new KeepAway(input, false);
+    var monkeyBusiness = keepAwayWithRelief.GetMonkeyBusinessAfterRounds(20);
+    var monkeyBusinessBig = keepAwayWithoutRelief.GetMonkeyBusinessAfterRounds(10000);
+
+    Console.WriteLine($"Monkey business: {monkeyBusiness}");
+    Console.WriteLine($"Monkey business (big): {monkeyBusinessBig}");
 }
